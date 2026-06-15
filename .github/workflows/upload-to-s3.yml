@@ -1,0 +1,44 @@
+name: upload-to-s3
+
+on:
+  workflow_dispatch:
+    inputs:
+      bucket:
+        description: 'Choose the bucket you want to push to'
+        required: true
+        type: choice
+        options:
+          - bucket-1
+          - bucket-2
+          
+run-name: Deploy to ${{ inputs.bucket }}
+
+jobs:
+  prepare-data:
+    name: Prepare data
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: csv-files
+          path: ./Data
+
+  release-data:
+    name: Release data
+    runs-on: ubuntu-latest
+    needs: prepare-data
+  
+    steps:
+      - name: Download artifact
+        uses: actions/upload-artifact@v7
+
+      - name: Test artifact download 
+        run: ls -R 
+      
+
+
+    
