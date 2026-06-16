@@ -1,17 +1,26 @@
 name: upload-to-s3
 
 on:
+  push:
+    branches:
+      - develop
   workflow_dispatch:
     inputs:
-      bucket:
-        description: 'Choose the bucket you want to push to'
+      environment:
+        description: 'Select environment to deploy to'
         required: true
         type: choice
         options:
-          - bucket-1
-          - bucket-2
-          
-run-name: Deploy to ${{ inputs.bucket }}
+          - DEV
+          - STAGING
+          - PROD
+
+        
+env:
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+
+permissions:
+  contents: read
 
 jobs:
   prepare-data:
@@ -37,7 +46,7 @@ jobs:
         uses: actions/upload-artifact@v7
 
       - name: Test artifact download 
-        run: ls -R 
+        run: ls -R
       
 
 
