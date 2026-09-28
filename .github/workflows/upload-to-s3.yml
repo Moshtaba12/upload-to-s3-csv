@@ -23,8 +23,8 @@ permissions:
   contents: read
 
 jobs:
-  prepare-data:
-    name: Prepare data
+  build:
+    name: Build and Upload Artifact
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
