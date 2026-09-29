@@ -39,7 +39,11 @@ jobs:
       - name: Upload to s3
         env: 
           S3_BUCKET: ${{ secrets.S3_Bucket }}
-        run: aws s3 sync "s3://${S3_BUCKET}/"
+        run: |
+          aws s3 sync . "s3://${S3_BUCKET}/" \
+          --exclude "*" \
+          --include "index.html" \
+          --include "content/*""
 
 
 
