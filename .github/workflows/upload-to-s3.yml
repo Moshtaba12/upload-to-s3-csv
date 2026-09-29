@@ -19,7 +19,7 @@ permissions:
 jobs:
   upload-to-s3:
     environment:
-      name: ${{ inputs.environment || 'DEV'. }}
+      name: ${{ inputs.environment || 'DEV' }}
     name: copy and upload to s3
     runs-on: ubuntu-latest
     steps:
